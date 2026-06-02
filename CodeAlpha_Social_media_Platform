@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Style Social Media</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#fafafa;
+    }
+
+    /* HEADER */
+
+    header{
+      background:white;
+      border-bottom:1px solid #ddd;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+    }
+
+    header h1{
+      color:#e1306c;
+      font-size:30px;
+    }
+
+    nav a{
+      text-decoration:none;
+      margin-left:20px;
+      color:#333;
+      font-weight:bold;
+    }
+
+    /* MAIN */
+
+    .container{
+      width:90%;
+      max-width:500px;
+      margin:30px auto;
+    }
+
+    /* CREATE POST */
+
+    .create-post{
+      background:white;
+      padding:15px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      margin-bottom:20px;
+    }
+
+    .create-post textarea{
+      width:100%;
+      height:80px;
+      border:none;
+      outline:none;
+      resize:none;
+      font-size:16px;
+    }
+
+    .create-post button{
+      margin-top:10px;
+      padding:10px 20px;
+      background:#e1306c;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    /* POSTS */
+
+    .post{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:10px;
+      margin-bottom:25px;
+      overflow:hidden;
+    }
+
+    .post-header{
+      display:flex;
+      align-items:center;
+      padding:15px;
+    }
+
+    .profile-pic{
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      background:#ccc;
+      margin-right:10px;
+    }
+
+    .username{
+      font-weight:bold;
+    }
+
+    .post img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+    }
+
+    .post-content{
+      padding:15px;
+    }
+
+    /* ACTION BUTTONS */
+
+    .actions{
+      display:flex;
+      gap:15px;
+      margin-bottom:10px;
+    }
+
+    .actions button{
+      border:none;
+      background:none;
+      font-size:22px;
+      cursor:pointer;
+    }
+
+    .likes{
+      font-weight:bold;
+      margin-bottom:8px;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      color:#777;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <h1>📸 InstaClone</h1>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Explore</a>
+      <a href="#">Profile</a>
+    </nav>
+
+  </header>
+
+  <!-- MAIN CONTENT -->
+
+  <div class="container">
+
+    <!-- CREATE POST -->
+
+    <div class="create-post">
+
+      <textarea id="caption"
+        placeholder="Write a caption..."></textarea>
+
+      <button onclick="createPost()">
+        Share Post
+      </button>
+
+    </div>
+
+    <!-- POSTS -->
+
+    <div id="posts">
+
+      <!-- SAMPLE POST -->
+
+      <div class="post">
+
+        <div class="post-header">
+
+          <div class="profile-pic"></div>
+
+          <div class="username">john_doe</div>
+
+        </div>
+
+        <img src="https://picsum.photos/500/350"
+             alt="Post Image">
+
+        <div class="post-content">
+
+          <div class="actions">
+
+            <button onclick="likePost(this)">
+              ❤️ <span>0</span>
+            </button>
+
+            <button>
+              💬
+            </button>
+
+            <button>
+              📤
+            </button>
+
+          </div>
+
+          <div class="likes">
+            0 likes
+          </div>
+
+          <p>
+            <b>john_doe</b> Enjoying the beautiful day 🌞
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>© 2026 InstaClone</p>
+
+  </footer>
+
+  <script>
+
+    /* CREATE NEW POST */
+
+    function createPost(){
+
+      let caption =
+        document.getElementById("caption").value;
+
+      if(caption.trim() === ""){
+
+        alert("Please write a caption!");
+
+        return;
+      }
+
+      let posts =
+        document.getElementById("posts");
+
+      let post =
+        document.createElement("div");
+
+      post.className = "post";
+
+      post.innerHTML = `
+
+        <div class="post-header">
+
+          <div class="profile-pic"></div>
+
+          <div class="username">you</div>
+
+        </div>
+
+        <img src="https://picsum.photos/500/35${Math.floor(Math.random()*10)}"
+             alt="Post Image">
+
+        <div class="post-content">
+
+          <div class="actions">
+
+            <button onclick="likePost(this)">
+              ❤️ <span>0</span>
+            </button>
+
+            <button>
+              💬
+            </button>
+
+            <button>
+              📤
+            </button>
+
+          </div>
+
+          <div class="likes">
+            0 likes
+          </div>
+
+          <p>
+            <b>you</b> ${caption}
+          </p>
+
+        </div>
+
+      `;
+
+      posts.prepend(post);
+
+      document.getElementById("caption").value = "";
+
+    }
+
+    /* LIKE BUTTON */
+
+    function likePost(button){
+
+      let span = button.querySelector("span");
+
+      let likes = Number(span.innerText);
+
+      likes++;
+
+      span.innerText = likes;
+
+      let likesText =
+        button.parentElement.parentElement
+        .querySelector(".likes");
+
+      likesText.innerText =
+        likes + " likes";
+
+    }
+
+  </script>
+
+</body>
+</html>
